@@ -37,7 +37,7 @@ mode_dict = {'i':'Ionian',
              'a':'Aeolian',
              'lo':'Locrian'}
 
-def slice_of_pie(key):
+def slice_of_pie(key, mode):
     '''
     prints section of the circle of fifths
     :param key:
@@ -46,10 +46,27 @@ def slice_of_pie(key):
     ki = notes.index(key)
     iv, v, vi, ii, iii = notes[ki+5], notes[ki+7], notes[ki+9], notes[ki+2], notes[ki+4]
 
+    if mode == 'i':
+        key ='(%s)'%key
+    elif mode == 'd':
+        ii ='(%s)'%ii
+    elif mode == 'p':
+        iii ='(%s)'%iii
+    elif mode == 'l':
+        iv ='(%s)'%iv
+    elif mode == 'm':
+        v ='(%s)'%v
+    elif mode == 'a':
+        vi ='(%s)'%vi
+    elif mode == 'lo':
+        pass
+
+
     print('''
     \t\t\tIV\tI\tV\n
-    Maj:\t\t%s\t(%s)\t%s\n
+    Maj:\t\t%s\t%s\t%s\n
     -------------------------\n
+    \t\t\tii\tiv\tiii\n
     Min:\t\t%s\t%s\t%s\n
     '''%(iv.upper(),key.upper(),v.upper(),ii,vi, iii)
 
@@ -97,7 +114,7 @@ def get_scale_notes(key, mode):
     '''
     print('Key: %s\nMode:  %s'%(key.upper(), mode_dict.get(mode)))
 
-    slice_of_pie(key)
+    slice_of_pie(key, mode)
 
     scale_notes = []
 
@@ -176,8 +193,8 @@ def get_chords_in_key(key, mode=None, chord_prog = None,sevenths=None):
                           'd':{'ii-iii-ii-V': [chords[1], chords[2], chords[1], chords[4]],},
                           'p':{'iii-IV-iii-ii': [chords[2], chords[3], chords[2], chords[1]],},
                           'l':{'IV-V-IV-V': [chords[3], chords[4], chords[3], chords[4]],},
-                          'm':{'I-IV-V-I': [chords[0], chords[3], chords[4], chords[0]],},
-                          'a':{'IV-V-IV-V': [chords[3], chords[4], chords[3], chords[4]],},
+                          'm':{'V-ii-V-IV': [chords[4], chords[1], chords[4], chords[3]],},
+                          'a':{'vi-IV-V': [chords[5], chords[3], chords[4]],},
                           'I-IV-V-I': [chords[0], chords[3], chords[4], chords[0]],
                           'I–V–vi–IV': [chords[0], chords[4], chords[5], chords[3]],
                           'I-vi-IV-V': [chords[0], chords[5], chords[3], chords[4]],
@@ -203,7 +220,7 @@ def get_whole_song(mode, key):
     get_scale_notes(mode, key)
     get_chords_in_key(mode, key)
 
-get_whole_song('e', 'm')
+get_whole_song('c', 'm')
 
 
 
